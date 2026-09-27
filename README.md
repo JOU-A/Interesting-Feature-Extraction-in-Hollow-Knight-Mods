@@ -25,7 +25,7 @@
 
 ## 安装与使用
 
-请根据具体功能说明进行安装。通常情况下，模组文件需要放入《空洞骑士》的 `Mods` 文件夹中，并确保已正确安装 Hollow Knight Modding API 或相关依赖。
+请根据具体功能说明进行安装。通常情况下，模组文件需要放入《空洞骑士》的 Mods 文件夹中，并确保已正确安装 Hollow Knight Modding API 或相关依赖。
 
 在使用前，请务必：
 
@@ -58,7 +58,7 @@
   本仓库只修改采用`Creative Commons Zero v1.0 Universal` 授权或其他支持二次修改、以及分发的项目
 
 8. **侵权处理**  
-   如果您是原作者，并认为本仓库中的内容侵犯了您的权益，或您不希望自己的作品被引用、修改、分发，请通过 Issue 或邮箱 `3807260848@qq.com` 联系我。我会在确认后尽快删除、修改或调整相关内容。
+   如果您是原作者，并认为本仓库中的内容侵犯了您的权益，或您不希望自己的作品被引用、修改、分发，请通过 Issue 或邮箱 3807260848@qq.com 联系我。我会在确认后尽快删除、修改或调整相关内容。
 
 9. **请支持正版与原作者**  
    请支持《空洞骑士》正版，也请尊重和支持社区模组作者的劳动成果。如果某个功能来自他人的模组，请在可能的情况下注明来源并给予致谢。
@@ -66,7 +66,7 @@
    
 ## 版权与许可
 
-- 本仓库中由我原创的部分，除非另有说明，采用 `Creative Commons Zero v1.0 Universal` 授权。
+- 本仓库中由我原创的部分，除非另有说明，采用 Creative Commons Zero v1.0 Universal 授权。
 - 第三方内容遵循其原项目许可证。
 - 未明确声明许可证的部分，默认保留所有权利。
 - 如果你计划分发、修改或二次使用本项目，请先确认相关内容的授权情况。
@@ -79,7 +79,7 @@
 
 ## 联系
 
-如有问题、建议或侵权相关事项，请通过 GitHub Issue 或 `3807260848@qq.com` 联系。
+如有问题、建议或侵权相关事项，请通过 GitHub Issue 或 3807260848@qq.com 联系。
 
 
 
@@ -151,7 +151,7 @@ Before use, please be sure to:
 
 ## Copyright and License
 
-- Unless otherwise stated, the parts of this repository originally created by me are licensed under `Creative Commons Zero v1.0 Universal`.
+- Unless otherwise stated, the parts of this repository originally created by me are licensed under Creative Commons Zero v1.0 Universal.
 - Third-party content follows the licenses of its original projects.
 - For parts without an explicit license, all rights are reserved by default.
 - If you plan to distribute, modify, or reuse this project, please first confirm the authorization status of the relevant content.
