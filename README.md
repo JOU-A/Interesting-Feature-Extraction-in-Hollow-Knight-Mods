@@ -1,167 +1,96 @@
-# 模组有趣功能提取
+# Pure Shape Parry · 弹反
 
-一个非官方的《空洞骑士》模组功能整理与再实现项目。
+> 给《空洞骑士》加上一击必中的「格挡反击」——按键即弹，挡下伤害，回敬一记重斩。
 
-本仓库主要从社区公开的《空洞骑士》模组中筛选有趣的功能，提取、移植、重写或组合其部分设计思路与实现，并做适度调整，让这些功能更符合个人喜好、更有趣，或更适合与其他模组搭配使用。
+## 这是什么
+一个轻量的独立模组，把 **Pure Shape（纯粹之形）** 中最受欢迎的核心机制——**格挡反击（弹反）**——单独提取出来，做成不依赖原模组、可独立加载的小 mod
+### ⚔️ 按键即时弹反
+不用蓄力斩，按下设定好的键，立即开启格挡判定。
 
-## 项目简介
+### 🎚️ 三档难度，自己定
+判定窗口与冷却时间联动，从"休闲"到"硬核"随你选：
 
-《空洞骑士》拥有活跃的模组社区，许多模组作者创造了非常有趣的功能和玩法。本项目源于对这些模组的兴趣，目标是对其中一些有趣功能进行整理、学习和再实现，并加入一些个人化的改动。
+| 难度 | 判定窗口 | 按键冷却 | 适合 |
+|------|----------|----------|------|
+| **简单** | 0.5 秒 | 1.5 秒 | 想爽快体验、不追求极限 |
+| **普通** | 0.3 秒 | 2 秒 | 有手感、又不至于太苛刻 |
+| **困难** | 0.1 秒 | 3 秒 | 一帧都不能错的硬核玩法 |
 
-本项目不是官方项目，也不是简单的“整合包”。它更偏向于个人兴趣驱动的实验性仓库，可能包含：
+冷却从判定结束开始计算（**无论是否弹反成功**），所以不能连按
 
-- 从公开模组中获取灵感并重新实现的功能；
-- 对原有功能进行轻量修改、增强或组合；
-- 为个人玩法偏好定制的实验性改动；
-- 对部分模组机制的移植、适配或兼容性调整。
+### 🛡️ 免伤 + 无敌帧
+弹反成功瞬间：
+- 本次伤害**完全抵消**（包括敌人碰撞伤害）
+- 附加无敌帧（可在 0.3 / 0.6 / 1.0 秒三档中选择），避免被后续攻击贴身打中
 
-## 主要特点
+### 💥 反击重斩（沿用原模组公式）
+反击伤害不是普通挥砍，而是按原模组的公式计算：
 
-- 收集并整理《空洞骑士》社区模组中的有趣机制；
-- 对原功能进行适度改造，使其更符合个人玩法；
-- 可能包含多个独立小功能或实验性补丁；
-- 持续更新，内容取决于个人兴趣和时间；
-- 可能与其他模组存在冲突，使用前请自行测试。
+| 条件 | 反击伤害 |
+|------|----------|
+| 无「沉重之击」 | 钉伤 × 6 − 6 |
+| 无「沉重之击」+ 蜕变挽歌 | 钉伤 × 4 + 6 |
+| 有「沉重之击」 | 钉伤 × 11（亡者之怒发动时不再 ×1.75） |
 
-## 安装与使用
+钉伤满级（21）时，反击约 **120** —— 稳定且明显高于普通挥砍。
 
-请根据具体功能说明进行安装。通常情况下，模组文件需要放入《空洞骑士》的 `Mods` 文件夹中，并确保已正确安装 Hollow Knight Modding API 或相关依赖。
+### ✨ 原版音效与光环
+- **"叮"**：使用游戏本体的拼刀音效，清脆利落
+- **白色光环**：格挡时显示，弹反成功时爆闪，层级紧贴人物下方
 
-在使用前，请务必：
+### 🔒 取消蓄力斩伤害
+进场景时会自动移除「蓄力斩」的伤害判定，所以**误触、连按都不会再打出高额伤害**——攻击伤害回归正常，只有弹反才是输出手段。
 
-1. 备份你的游戏存档；
-2. 确认当前游戏版本与模组兼容；
-3. 一次只添加少量模组，方便排查冲突；
-4. 阅读具体功能对应的说明文件。
+## 配置项
 
-## 免责声明
+Mod 菜单（ModMenu / 暂停菜单的 Mod 选项）内全部可调，且**自动保存**：
 
-1. **非官方项目**  
-   本项目是非官方、非商业的个人兴趣项目，与 Team Cherry、Hollow Knight 官方、Steam、GOG 以及任何原模组作者均无隶属、合作、授权或认可关系。
+| 选项 | 说明 |
+|------|------|
+| **弹反** | 总开关 |
+| **弹反按键** | 左 Shift / 空格 / F / Q / 鼠标右键 / E |
+| **弹反难度** | 简单 / 普通 / 困难（判定窗口 + 冷却） |
+| **弹反无敌帧** | 0.3 / 0.6 / 1.0 秒 |
+| **弹反特效** | 光环与音效的开关（关掉后弹反依然生效） |
 
-2. **版权归属**  
-   《空洞骑士》及其相关内容的版权归 Team Cherry 及其相关权利方所有。社区模组中的代码、美术、音频、文本、设计等版权归各自原作者所有。本项目不声称拥有任何第三方内容的版权。
+## 安装
 
-3. **仅用于学习与交流**  
-   本项目主要用于个人学习、模组研究、技术交流和娱乐。请勿将其用于商业用途，包括但不限于售卖、付费下载、付费整合、众筹、广告盈利或捆绑销售。
+**前置要求**
 
-4. **遵守原模组许可证**  
-   如果本仓库包含、引用、修改或分发来自第三方模组的内容，请务必遵守原项目的许可证和授权条款。若原模组许可证禁止修改、再分发或公开传播，请不要使用或分发相关内容。建议优先参考原模组思路并进行独立实现，而不是直接复制受限制的代码或资源。
+- Hollow Knight **Modding API**（`1.5.78.11833` 或相近版本）
+- **Vasi**、**HKMirror**（放到 `Mods\` 目录即可）
 
-5. **风险自负**  
-   使用本模组或本仓库中的任何内容可能导致游戏崩溃、存档损坏、进度丢失、性能下降、模组冲突或其他异常情况。请在安装前备份存档和游戏文件，并自行承担使用风险。
+**安装步骤**
 
-6. **无担保**  
-   本项目按“现状”提供，不提供任何明示或暗示的担保，包括但不限于可用性、稳定性、兼容性和安全性。作者不对因使用本项目而产生的任何直接或间接损失负责。
+1. 把 `PureShapeParry.dll` 放进：
 
-7. **关于版权**
-  本仓库只修改采用`Creative Commons Zero v1.0 Universal` 授权或其他支持二次修改、以及分发的项目
+   ```
+   ...\hollow_knight_Data\Managed\Mods\PureShapeParry\
+   ```
 
-8. **侵权处理**  
-   如果您是原作者，并认为本仓库中的内容侵犯了您的权益，或您不希望自己的作品被引用、修改、分发，请通过 Issue 或邮箱 `3807260848@qq.com` 联系我。我会在确认后尽快删除、修改或调整相关内容。
+2. 重启游戏
+3. 在 Mod 菜单里设置按键与难度
 
-9. **请支持正版与原作者**  
-   请支持《空洞骑士》正版，也请尊重和支持社区模组作者的劳动成果。如果某个功能来自他人的模组，请在可能的情况下注明来源并给予致谢。
-
-   
-## 版权与许可
-
-- 本仓库中由我原创的部分，除非另有说明，采用 `Creative Commons Zero v1.0 Universal` 授权。
-- 第三方内容遵循其原项目许可证。
-- 未明确声明许可证的部分，默认保留所有权利。
-- 如果你计划分发、修改或二次使用本项目，请先确认相关内容的授权情况。
-
-## 致谢
-
-感谢 Team Cherry 创作了《空洞骑士》。  
-感谢所有社区模组作者、工具作者和文档贡献者。  
-如果没有他们的工作，本项目中的许多灵感和功能探索都不会存在。
-
-## 联系
-
-如有问题、建议或侵权相关事项，请通过 GitHub Issue 或 `3807260848@qq.com` 联系。
+**卸载**：删除 `Mods\PureShapeParry` 文件夹即可。
 
 
+## 兼容性
 
+- 仅处理普通敌人伤害（`hazardType == 1`）；尖刺 / 酸液 / 岩浆等死亡判定不受影响
+- 与常见 Mod 大礼包共存无冲突
+- 修改后需重启游戏生效
 
-# Interesting Feature Extractions from Mods
+## 致谢与授权
 
-An unofficial Hollow Knight mod feature organization and reimplementation project.
+- **机制来源**：Pure Shape（纯粹之形）
+- **原作者**：**Rotaelis**
+- **原模组**：https://github.com/Rotaelis/Pure-Shape
+- **授权**：✅ 已获原作者授权使用，特此致谢
 
-This repository mainly selects interesting features from publicly available Hollow Knight mods in the community, extracts, ports, rewrites, or combines some of their design ideas and implementations, and makes moderate adjustments so that these features better fit personal preferences, are more interesting, or are more suitable for use alongside other mods.
+> 本 mod 的「弹反 / 格挡反击」机制提取自 Pure Shape，原作者 Rotaelis，已获授权。
 
-## Project Introduction
+## 版本
 
-Hollow Knight has an active modding community, and many mod authors have created very interesting features and gameplay. This project stems from an interest in these mods. Its goal is to organize, study, and reimplement some interesting features, while adding some personal changes.
+- **v1.0.0** — 首个公开发布版本
 
-This project is not an official project, nor is it a simple "modpack." It is more of an experimental repository driven by personal interest and may include:
-
-- Features inspired by public mods and reimplemented;
-- Lightweight modifications, enhancements, or combinations of original features;
-- Experimental changes customized for personal gameplay preferences;
-- Porting, adaptation, or compatibility adjustments for some mod mechanics.
-
-## Main Features
-
-- Collect and organize interesting mechanics from the Hollow Knight community mods;
-- Moderately modify original features to better fit personal gameplay;
-- May contain multiple independent small features or experimental patches;
-- Continuously updated, depending on personal interest and time;
-- May conflict with other mods; test before use.
-
-## Installation and Usage
-
-Please install according to the specific feature instructions. Usually, mod files need to be placed in the `Mods` folder of Hollow Knight, and Hollow Knight Modding API or related dependencies must be correctly installed.
-
-Before use, please be sure to:
-
-1. Back up your game saves;
-2. Confirm that the current game version is compatible with the mod;
-3. Add only a few mods at a time to make conflict troubleshooting easier;
-4. Read the instruction file corresponding to the specific feature.
-
-## Disclaimer
-
-1. **Unofficial Project**  
-   This project is an unofficial, non-commercial personal interest project. It is not affiliated with, partnered with, authorized by, or endorsed by Team Cherry, Hollow Knight official, Steam, GOG, or any original mod author.
-
-2. **Copyright Ownership**  
-   The copyright of Hollow Knight and related content belongs to Team Cherry and its relevant rights holders. The copyright of code, art, audio, text, designs, etc. in community mods belongs to their respective original authors. This project does not claim ownership of any third-party content.
-
-3. **For Learning and Communication Only**  
-   This project is mainly for personal learning, mod research, technical exchange, and entertainment. Please do not use it for commercial purposes, including but not limited to selling, paid downloads, paid compilations, crowdfunding, advertising revenue, or bundled sales.
-
-4. **Comply with Original Mod Licenses**  
-   If this repository contains, references, modifies, or distributes content from third-party mods, you must comply with the license and authorization terms of the original projects. If the original mod license prohibits modification, redistribution, or public distribution, please do not use or distribute the relevant content. It is recommended to prioritize referencing the original mod's ideas and implementing them independently, rather than directly copying restricted code or resources.
-
-5. **Use at Your Own Risk**  
-   Using this mod or any content in this repository may cause game crashes, save corruption, progress loss, performance degradation, mod conflicts, or other abnormal situations. Please back up saves and game files before installation, and you assume the risks of use yourself.
-
-6. **No Warranty**  
-   This project is provided "as is" without any express or implied warranties, including but not limited to availability, stability, compatibility, and safety. The author is not responsible for any direct or indirect losses caused by the use of this project.
-
-7. **Regarding Copyright**  
-   This repository only modifies projects licensed under `Creative Commons Zero v1.0 Universal` or other projects that support secondary modification and distribution.
-
-8. **Infringement Handling**  
-   If you are an original author and believe that the content in this repository infringes your rights, or you do not want your work to be referenced, modified, or distributed, please contact me through an Issue or email at `<3807260848@qq.com>`. After confirmation, I will delete, modify, or adjust the relevant content as soon as possible.
-
-9. **Please Support the Official Game and Original Authors**  
-    Please support the official version of Hollow Knight, and respect and support the work of community mod authors. If a feature comes from someone else's mod, please credit the source where possible and give thanks.
-
-## Copyright and License
-
-- Unless otherwise stated, the parts of this repository originally created by me are licensed under `Creative Commons Zero v1.0 Universal`.
-- Third-party content follows the licenses of its original projects.
-- For parts without an explicit license, all rights are reserved by default.
-- If you plan to distribute, modify, or reuse this project, please first confirm the authorization status of the relevant content.
-
-## Acknowledgements
-
-Thanks to Team Cherry for creating Hollow Knight.  
-Thanks to all community mod authors, tool authors, and documentation contributors.  
-Without their work, many of the inspirations and feature explorations in this project would not exist.
-
-## Contact
-
-If you have questions, suggestions, or copyright-related matters, please contact me through a GitHub Issue or `3807260848@qq.com`.
+- <img width="497" height="470" alt="授权图片" src="https://github.com/user-attachments/assets/2f46e778-7f82-4c59-8d45-24d263ed2fa3" />
